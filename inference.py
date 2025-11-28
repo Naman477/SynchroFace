@@ -30,14 +30,14 @@ def main(args):
 
     current_root_path = os.path.split(sys.argv[0])[0]
 
-    sadtalker_paths = init_path(args.checkpoint_dir, os.path.join(current_root_path, 'src/config'), args.size, args.old_version, args.preprocess)
+    synchroface_paths = init_path(args.checkpoint_dir, os.path.join(current_root_path, 'src/config'), args.size, args.old_version, args.preprocess)
 
     #init model
-    preprocess_model = CropAndExtract(sadtalker_paths, device)
+    preprocess_model = CropAndExtract(synchroface_paths, device)
 
-    audio_to_coeff = Audio2Coeff(sadtalker_paths,  device)
+    audio_to_coeff = Audio2Coeff(synchroface_paths,  device)
     
-    animate_from_coeff = AnimateFromCoeff(sadtalker_paths, device)
+    animate_from_coeff = AnimateFromCoeff(synchroface_paths, device)
 
     #crop image and extract 3dmm from image
     first_frame_dir = os.path.join(save_dir, 'first_frame_dir')

@@ -1,3 +1,4 @@
+import imageio_ffmpeg
 import torch, uuid
 import os, sys, shutil
 from src.utils.preprocess import CropAndExtract
@@ -16,7 +17,7 @@ def mp3_to_wav(mp3_filename,wav_filename,frame_rate):
     mp3_file.set_frame_rate(frame_rate).export(wav_filename,format="wav")
 
 
-class SadTalker():
+class SynchroFace():
 
     def __init__(self, checkpoint_path='checkpoints', config_path='src/config', lazy_load=False):
 
@@ -43,12 +44,12 @@ class SadTalker():
         length_of_audio = 0, use_blink=True,
         result_dir='./results/'):
 
-        self.sadtalker_paths = init_path(self.checkpoint_path, self.config_path, size, False, preprocess)
-        print(self.sadtalker_paths)
+        self.synchroface_paths = init_path(self.checkpoint_path, self.config_path, size, False, preprocess)
+        print(self.synchroface_paths)
             
-        self.audio_to_coeff = Audio2Coeff(self.sadtalker_paths, self.device)
-        self.preprocess_model = CropAndExtract(self.sadtalker_paths, self.device)
-        self.animate_from_coeff = AnimateFromCoeff(self.sadtalker_paths, self.device)
+        self.audio_to_coeff = Audio2Coeff(self.synchroface_paths, self.device)
+        self.preprocess_model = CropAndExtract(self.synchroface_paths, self.device)
+        self.animate_from_coeff = AnimateFromCoeff(self.synchroface_paths, self.device)
 
         time_tag = str(uuid.uuid4())
         save_dir = os.path.join(result_dir, time_tag)
@@ -85,7 +86,7 @@ class SadTalker():
             audio_path = os.path.join(save_dir, ref_video_videoname+'.wav')
             print('new audiopath:',audio_path)
             # if ref_video contains audio, set the audio from ref_video.
-            cmd = r"ffmpeg -y -hide_banner -loglevel error -i %s %s"%(ref_video, audio_path)
+            cmd = r'""C:\\Users\\Lenovo\\Desktop\\Projects\\New folder\\SadTalker\\venv\\lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win64-v4.2.2.exe" -y -hide_banner -loglevel error -i %s %s""'%(ref_video, audio_path)
             os.system(cmd)        
 
         os.makedirs(save_dir, exist_ok=True)
